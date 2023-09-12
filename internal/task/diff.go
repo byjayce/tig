@@ -1,3 +1,3 @@
-package main
+package task
 
 type DiffOption struct{}
