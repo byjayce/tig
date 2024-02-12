@@ -3,7 +3,6 @@ package object
 import (
 	"errors"
 	"fmt"
-	"os"
 )
 
 type CatFileOperationType string
@@ -22,13 +21,7 @@ type CatFileParam struct {
 }
 
 func CatFile(param CatFileParam) (string, error) {
-	objectPath := key(param.Hash).Path(param.BaseDir)
-	b, err := os.ReadFile(objectPath)
-	if err != nil {
-		return "", err
-	}
-
-	v, err := parse(b)
+	v, err := parseObject(param.BaseDir, param.Hash)
 	if err != nil {
 		return "", err
 	}
