@@ -17,7 +17,7 @@ type InitCoreConfig struct {
 	Bare bool `yaml:"bare"` // Bare 옵션. Bare 모드인지 아닌지 여부를 지정한다.
 }
 
-type InitConfig struct {
+type InitOption struct {
 	Core InitCoreConfig `yaml:"core"` // Core 옵션.
 }
 
@@ -25,7 +25,7 @@ type InitConfig struct {
 // 이 구조체는 Init() 함수의 파라미터로 사용된다.
 type InitParam struct {
 	WorkingCopyPath string     // 작업 공간의 경로
-	Config          InitConfig // Init() 함수가 `config` 파일을 만들 때 지정할 내용들
+	Option          InitOption // Init() 함수가 `config` 파일을 만들 때 지정할 내용들
 }
 
 // Init
@@ -34,7 +34,7 @@ func Init(param InitParam) error {
 	// TODO: 설정에 따라 Base가 바뀌는 상황 추가하기
 	base := param.WorkingCopyPath
 
-	if err := createConfigFile(base, param.Config); err != nil {
+	if err := createConfigFile(base, param.Option); err != nil {
 		return err
 	}
 
@@ -49,7 +49,7 @@ func Init(param InitParam) error {
 	return createRefsDir(base)
 }
 
-func createConfigFile(base string, param InitConfig) error {
+func createConfigFile(base string, param InitOption) error {
 	buf, err := yaml.Marshal(param)
 	if err != nil {
 		return err

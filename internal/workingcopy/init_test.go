@@ -16,7 +16,7 @@ var _ = Describe("Init", func() {
 		})
 
 		It("config 파일과 head 파일이 생성된다.", func() {
-			config := InitConfig{
+			config := InitOption{
 				Core: InitCoreConfig{
 					Bare: false,
 				},
@@ -24,7 +24,7 @@ var _ = Describe("Init", func() {
 
 			initParam := InitParam{
 				WorkingCopyPath: tempDir,
-				Config:          config,
+				Option:          config,
 			}
 
 			configBuf, err := yaml.Marshal(config)
