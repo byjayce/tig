@@ -9,10 +9,6 @@ import (
 	"strings"
 )
 
-const (
-	TreeType Type = "tree"
-)
-
 type treeNode struct {
 	Mode    os.FileMode
 	Type    Type

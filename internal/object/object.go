@@ -7,6 +7,15 @@ import (
 	"os"
 )
 
+// Type 객체 타입
+type Type string
+
+const (
+	BlobType   Type = "blob"   // BlobType Blob 객체 타입
+	TreeType   Type = "tree"   // TreeType Tree 객체 타입
+	CommitType Type = "commit" // CommitType Commit 객체 타입
+)
+
 type value struct {
 	Type Type
 	Data []byte
