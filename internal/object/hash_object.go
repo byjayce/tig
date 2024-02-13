@@ -4,13 +4,6 @@ import (
 	"os"
 )
 
-// Type 객체 타입
-type Type string
-
-const (
-	BlobType Type = "blob" // BlobType Blob 객체 타입
-)
-
 type HashObjectParam struct {
 	DryRun  bool
 	BaseDir string // BaseDir tig 저장소 디렉토리 경로

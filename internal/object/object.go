@@ -4,6 +4,16 @@ import (
 	"bytes"
 	"compress/zlib"
 	"fmt"
+	"os"
+)
+
+// Type 객체 타입
+type Type string
+
+const (
+	BlobType   Type = "blob"   // BlobType Blob 객체 타입
+	TreeType   Type = "tree"   // TreeType Tree 객체 타입
+	CommitType Type = "commit" // CommitType Commit 객체 타입
 )
 
 type value struct {
@@ -13,6 +23,16 @@ type value struct {
 
 func (v value) Bytes() ([]byte, error) {
 	return zlibCompress(content(v.Type, v.Data))
+}
+
+func parseObject(baseDir, objectKey string) (value, error) {
+	objectPath := key(objectKey).Path(baseDir)
+	data, err := os.ReadFile(objectPath)
+	if err != nil {
+		return value{}, err
+	}
+
+	return parse(data)
 }
 
 func parse(data []byte) (value, error) {
