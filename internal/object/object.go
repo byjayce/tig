@@ -14,6 +14,7 @@ const (
 	BlobType   Type = "blob"   // BlobType Blob 객체 타입
 	TreeType   Type = "tree"   // TreeType Tree 객체 타입
 	CommitType Type = "commit" // CommitType Commit 객체 타입
+	TagType    Type = "tag"    // TagType Tag 객체 타입
 )
 
 type value struct {

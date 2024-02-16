@@ -1,9 +1,10 @@
-package workingcopy
+package porcelain
 
 import (
+	"encoding/json"
+	"github.com/byjayce/tig/internal/config"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"gopkg.in/yaml.v3"
 	"os"
 	"path/filepath"
 )
@@ -16,41 +17,41 @@ var _ = Describe("Init", func() {
 		})
 
 		It("config 파일과 head 파일이 생성된다.", func() {
-			config := InitOption{
-				Core: InitCoreConfig{
+			config := config.Config{
+				Core: config.Core{
 					Bare: false,
 				},
 			}
 
 			initParam := InitParam{
 				WorkingCopyPath: tempDir,
-				Option:          config,
+				Config:          config,
 			}
 
-			configBuf, err := yaml.Marshal(config)
+			configBuf, err := json.Marshal(config)
 			if err != nil {
 				Fail(err.Error())
 			}
 
 			Expect(Init(initParam)).Should(BeNil())
 
-			f, err := os.Stat(filepath.Join(tempDir, configFileName))
+			f, err := os.Stat(filepath.Join(tempDir, baseDir, configFileName))
 			Expect(err).Should(BeNil())
 			Expect(f.IsDir()).Should(BeFalse())
 
-			buf, err := os.ReadFile(filepath.Join(tempDir, configFileName))
+			buf, err := os.ReadFile(filepath.Join(tempDir, baseDir, configFileName))
 			Expect(err).Should(BeNil())
 			Expect(buf).Should(Equal(configBuf))
 
-			f, err = os.Stat(filepath.Join(tempDir, headFileName))
+			f, err = os.Stat(filepath.Join(tempDir, baseDir, headFileName))
 			Expect(err).Should(BeNil())
 			Expect(f.IsDir()).Should(BeFalse())
 
-			d, err := os.Stat(filepath.Join(tempDir, objectsDirName))
+			d, err := os.Stat(filepath.Join(tempDir, baseDir, objectsDirName))
 			Expect(err).Should(BeNil())
 			Expect(d.IsDir()).Should(BeTrue())
 
-			d, err = os.Stat(filepath.Join(tempDir, refsDirName))
+			d, err = os.Stat(filepath.Join(tempDir, baseDir, refsDirName))
 			Expect(err).Should(BeNil())
 			Expect(d.IsDir()).Should(BeTrue())
 		})
