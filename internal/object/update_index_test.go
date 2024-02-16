@@ -2,7 +2,6 @@ package object
 
 import (
 	"errors"
-	"github.com/byjayce/tig/internal/workingcopy"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"io/fs"
@@ -22,11 +21,6 @@ var _ = Describe("UpdateIndex", func() {
 			t = GinkgoT()
 			workingCopy = t.TempDir()
 			baseDir = filepath.Join(workingCopy, ".git")
-			if err := workingcopy.Init(workingcopy.InitParam{
-				WorkingCopyPath: workingCopy,
-			}); err != nil {
-				t.Fatal(err)
-			}
 		})
 
 		Context("그리고 Add Option이 false인 경우", func() {
@@ -179,11 +173,6 @@ var _ = Describe("UpdateIndex", func() {
 			t = GinkgoT()
 			workingCopy = t.TempDir()
 			baseDir = filepath.Join(workingCopy, ".git")
-			if err := workingcopy.Init(workingcopy.InitParam{
-				WorkingCopyPath: workingCopy,
-			}); err != nil {
-				t.Fatal(err)
-			}
 		})
 
 		It("파일이 없는 경우", func() {

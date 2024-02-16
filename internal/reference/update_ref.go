@@ -1,6 +1,7 @@
 package reference
 
 import (
+	"errors"
 	"os"
 	"path/filepath"
 )
@@ -14,11 +15,20 @@ type UpdateRefParam struct {
 
 func UpdateRef(param UpdateRefParam) error {
 	path := filepath.Join(param.BaseDir, param.ReferencePath)
-	if param.Delete {
-		return os.Remove(path)
+	if err := os.MkdirAll(filepath.Dir(path), os.ModePerm); err != nil {
+		return err
 	}
 
-	if err := os.MkdirAll(filepath.Dir(path), os.ModePerm); err != nil {
+	if param.Delete {
+		err := os.Remove(path)
+		if err == nil {
+			return nil
+		}
+
+		if errors.Is(err, os.ErrNotExist) {
+			return nil
+		}
+
 		return err
 	}
 

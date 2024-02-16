@@ -1,4 +1,4 @@
-package workingcopy_test
+package porcelain_test
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestWorkingCopy(t *testing.T) {
+func TestPorcelain(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "WorkingCopy Suite")
+	RunSpecs(t, "Porcelain Suite")
 }

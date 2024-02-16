@@ -1,7 +1,6 @@
 package object
 
 import (
-	"github.com/byjayce/tig/internal/workingcopy"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"os"
@@ -31,11 +30,6 @@ var _ = Describe("LSTree", func() {
 			t = GinkgoT()
 			workingCopy = t.TempDir()
 			baseDir = filepath.Join(workingCopy, ".git")
-			if err := workingcopy.Init(workingcopy.InitParam{
-				WorkingCopyPath: workingCopy,
-			}); err != nil {
-				t.Fatal(err)
-			}
 
 			if err := os.MkdirAll(filepath.Join(workingCopy, "a", "b"), os.ModePerm); err != nil {
 				t.Fatal(err)
