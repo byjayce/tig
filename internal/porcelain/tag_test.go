@@ -25,7 +25,7 @@ var _ = Describe("(*Tig).Tag", func() {
 			}
 
 			if err := Init(InitParam{
-				WorkingCopyPath: baseDir,
+				WorkingCopyDir: baseDir,
 				Config: config.Config{
 					Core: config.Core{
 						Bare: false,
@@ -54,7 +54,7 @@ var _ = Describe("(*Tig).Tag", func() {
 					Delete:  true,
 				})).To(BeNil())
 
-				if err := os.WriteFile(".git/refs/tags/v1.0.0", []byte("test"), os.ModePerm); err != nil {
+				if err := os.WriteFile(".tig/refs/tags/v1.0.0", []byte("test"), os.ModePerm); err != nil {
 					t.Fatal(err)
 				}
 
@@ -64,7 +64,7 @@ var _ = Describe("(*Tig).Tag", func() {
 					Delete:  true,
 				})).To(BeNil())
 
-				_, err := os.Stat(".git/refs/tags/v1.0.0")
+				_, err := os.Stat(".tig/refs/tags/v1.0.0")
 				Expect(errors.Is(err, os.ErrNotExist)).To(BeTrue())
 			})
 		})
@@ -112,7 +112,7 @@ var _ = Describe("(*Tig).Tag", func() {
 					Target:  hash,
 				})).To(BeNil())
 
-				data, err := os.ReadFile(".git/refs/tags/v1.0.0")
+				data, err := os.ReadFile(".tig/refs/tags/v1.0.0")
 				Expect(err).To(BeNil())
 				Expect(string(data)).To(Equal(hash))
 			})
@@ -143,7 +143,7 @@ var _ = Describe("(*Tig).Tag", func() {
 				})
 				Expect(err).To(BeNil())
 
-				data, err := os.ReadFile(".git/refs/tags/v1.0.0")
+				data, err := os.ReadFile(".tig/refs/tags/v1.0.0")
 				Expect(err).To(BeNil())
 				Expect(string(data)).ToNot(BeEmpty())
 

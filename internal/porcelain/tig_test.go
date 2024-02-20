@@ -40,7 +40,7 @@ var _ = Describe("NewTag", func() {
 					tig, err := NewTig()
 					Expect(tig).To(BeNil())
 					Expect(err).To(HaveOccurred())
-					Expect(err.Error()).To(Equal("not a git repository"))
+					Expect(err.Error()).To(Equal("not a tig repository"))
 				})
 			})
 			Context("그리고 bare 옵션이 켜져있는 경우", func() {
@@ -66,19 +66,19 @@ var _ = Describe("NewTag", func() {
 			})
 		})
 
-		Context("설정 파일이 .git 디렉토리 아래 있는 경우", func() {
+		Context("설정 파일이 .tig 디렉토리 아래 있는 경우", func() {
 			It("Tig 구조체를 초기화한다.", func() {
 				// 작업 공간 이동
 				if err := os.Chdir(tempDir); err != nil {
 					t.Fatal(err)
 				}
 
-				// .git 디렉토리를 생성하고 설정 파일을 생성한다.
-				gitDir := tempDir + "/.git"
-				if err := os.Mkdir(gitDir, os.ModePerm); err != nil {
+				// .tig 디렉토리를 생성하고 설정 파일을 생성한다.
+				tigDir := tempDir + "/.tig"
+				if err := os.Mkdir(tigDir, os.ModePerm); err != nil {
 					t.Fatal(err)
 				}
-				if err := config.CreateConfigFile(gitDir, config.Config{
+				if err := config.CreateConfigFile(tigDir, config.Config{
 					Core: config.Core{
 						Bare: false,
 					},

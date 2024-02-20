@@ -86,7 +86,7 @@ var _ = Describe("WriteTree", func() {
 			BeforeEach(func() {
 				t = GinkgoT()
 				workingCopy = t.TempDir()
-				baseDir = filepath.Join(workingCopy, ".git")
+				baseDir = filepath.Join(workingCopy, ".tig")
 				if err := os.Mkdir(filepath.Join(workingCopy, testDir), 0755); err != nil {
 					t.Fatal(err)
 				}

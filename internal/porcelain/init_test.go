@@ -1,7 +1,6 @@
 package porcelain
 
 import (
-	"encoding/json"
 	"github.com/byjayce/tig/internal/config"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -17,33 +16,27 @@ var _ = Describe("Init", func() {
 		})
 
 		It("config 파일과 head 파일이 생성된다.", func() {
-			config := config.Config{
+			cfg := config.Config{
 				Core: config.Core{
 					Bare: false,
+				},
+				User: config.User{
+					Name:  "jayce",
+					Email: "jayce@byjayce.cc",
 				},
 			}
 
 			initParam := InitParam{
-				WorkingCopyPath: tempDir,
-				Config:          config,
+				WorkingCopyDir: tempDir,
+				Config:         cfg,
 			}
-
-			configBuf, err := json.Marshal(config)
-			if err != nil {
-				Fail(err.Error())
-			}
-
 			Expect(Init(initParam)).Should(BeNil())
 
-			f, err := os.Stat(filepath.Join(tempDir, baseDir, configFileName))
+			createdCfg, err := config.ReadConfigFile(filepath.Join(tempDir, baseDir))
 			Expect(err).Should(BeNil())
-			Expect(f.IsDir()).Should(BeFalse())
+			Expect(createdCfg).Should(Equal(cfg))
 
-			buf, err := os.ReadFile(filepath.Join(tempDir, baseDir, configFileName))
-			Expect(err).Should(BeNil())
-			Expect(buf).Should(Equal(configBuf))
-
-			f, err = os.Stat(filepath.Join(tempDir, baseDir, headFileName))
+			f, err := os.Stat(filepath.Join(tempDir, baseDir, headFileName))
 			Expect(err).Should(BeNil())
 			Expect(f.IsDir()).Should(BeFalse())
 

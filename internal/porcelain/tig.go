@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-const baseDir = ".git"
+const baseDir = ".tig"
 
 type Tig struct {
 	config  config.Config
@@ -20,12 +20,12 @@ func NewTig() (*Tig, error) {
 		return nil, err
 	}
 
-	gitPath := filepath.Join(wd, baseDir)
+	tigPath := filepath.Join(wd, baseDir)
 
-	stat, err := os.Stat(gitPath)
+	stat, err := os.Stat(tigPath)
 	if err == nil {
 		if stat.IsDir() {
-			cfg, err := config.ReadConfigFile(gitPath)
+			cfg, err := config.ReadConfigFile(tigPath)
 			if err != nil {
 				return nil, err
 			}
@@ -47,7 +47,7 @@ func NewTig() (*Tig, error) {
 	}
 
 	if !cfg.Core.Bare {
-		return nil, errors.New("not a git repository")
+		return nil, errors.New("not a tig repository")
 	}
 
 	return &Tig{

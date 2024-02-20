@@ -7,7 +7,6 @@ import (
 )
 
 const (
-	configFileName = "config"
 	headFileName   = "HEAD"
 	objectsDirName = "objects"
 	refsDirName    = "refs"
@@ -16,35 +15,34 @@ const (
 // InitParam
 // 이 구조체는 Init() 함수의 파라미터로 사용된다.
 type InitParam struct {
-	WorkingCopyPath string        // 작업 공간의 경로
-	Config          config.Config // Init() 함수가 `config` 파일을 만들 때 지정할 내용들
+	WorkingCopyDir string        // 작업 공간의 경로
+	Config         config.Config // Init() 함수가 `config` 파일을 만들 때 지정할 내용들
 }
 
 // Init
 // 이 함수는 Git의 작업 공간을 초기화한다.
 func Init(param InitParam) error {
-	// TODO: 설정에 따라 Base가 바뀌는 상황 추가하기
-	base := param.WorkingCopyPath
+	tigDir := param.WorkingCopyDir
 	if !param.Config.Core.Bare {
-		base = filepath.Join(base, ".git")
-		if err := os.MkdirAll(base, 0755); err != nil {
+		tigDir = filepath.Join(tigDir, baseDir)
+		if err := os.MkdirAll(tigDir, 0755); err != nil {
 			return err
 		}
 	}
 
-	if err := config.CreateConfigFile(base, param.Config); err != nil {
+	if err := config.CreateConfigFile(tigDir, param.Config); err != nil {
 		return err
 	}
 
-	if err := createHeadFile(base); err != nil {
+	if err := createHeadFile(tigDir); err != nil {
 		return err
 	}
 
-	if err := createObjectsDir(base); err != nil {
+	if err := createObjectsDir(tigDir); err != nil {
 		return err
 	}
 
-	return createRefsDir(base)
+	return createRefsDir(tigDir)
 }
 
 func createHeadFile(base string) error {

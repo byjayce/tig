@@ -24,23 +24,23 @@ type Config struct {
 	User User // User 옵션.
 }
 
-func CreateConfigFile(base string, param Config) error {
-	buf, err := json.Marshal(param)
+func CreateConfigFile(tigDir string, param Config) error {
+	data, err := json.Marshal(param)
 	if err != nil {
 		return err
 	}
 
-	return os.WriteFile(filepath.Join(base, configFileName), buf, 0644)
+	return os.WriteFile(filepath.Join(tigDir, configFileName), data, 0644)
 }
 
 func ReadConfigFile(base string) (Config, error) {
-	buf, err := os.ReadFile(filepath.Join(base, configFileName))
+	data, err := os.ReadFile(filepath.Join(base, configFileName))
 	if err != nil {
 		return Config{}, err
 	}
 
 	var config Config
-	if err := json.Unmarshal(buf, &config); err != nil {
+	if err := json.Unmarshal(data, &config); err != nil {
 		return Config{}, err
 	}
 

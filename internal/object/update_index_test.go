@@ -20,7 +20,7 @@ var _ = Describe("UpdateIndex", func() {
 		BeforeEach(func() {
 			t = GinkgoT()
 			workingCopy = t.TempDir()
-			baseDir = filepath.Join(workingCopy, ".git")
+			baseDir = filepath.Join(workingCopy, ".tig")
 		})
 
 		Context("그리고 Add Option이 false인 경우", func() {
@@ -172,7 +172,7 @@ var _ = Describe("UpdateIndex", func() {
 		BeforeEach(func() {
 			t = GinkgoT()
 			workingCopy = t.TempDir()
-			baseDir = filepath.Join(workingCopy, ".git")
+			baseDir = filepath.Join(workingCopy, ".tig")
 		})
 
 		It("파일이 없는 경우", func() {

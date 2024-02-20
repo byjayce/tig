@@ -29,7 +29,7 @@ var _ = Describe("LSTree", func() {
 			*/
 			t = GinkgoT()
 			workingCopy = t.TempDir()
-			baseDir = filepath.Join(workingCopy, ".git")
+			baseDir = filepath.Join(workingCopy, ".tig")
 
 			if err := os.MkdirAll(filepath.Join(workingCopy, "a", "b"), os.ModePerm); err != nil {
 				t.Fatal(err)
