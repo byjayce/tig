@@ -2,6 +2,7 @@ package porcelain
 
 import (
 	"github.com/byjayce/tig/internal/config"
+	"github.com/byjayce/tig/internal/object"
 	"os"
 	"path/filepath"
 )
@@ -39,7 +40,7 @@ func Init(param InitParam) error {
 	}
 
 	// objects 디렉토리 만들기
-	if err := os.MkdirAll(filepath.Join(tigDir, objectsDirName), os.ModePerm); err != nil {
+	if err := os.MkdirAll(filepath.Join(tigDir, object.DirName), os.ModePerm); err != nil {
 		return err
 	}
 

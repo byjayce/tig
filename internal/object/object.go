@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	objectsDirName = "objects"
+	DirName = "objects"
 )
 
 type Type string
@@ -21,7 +21,7 @@ const (
 type Key string
 
 func (k Key) Dir(tigDir string) string {
-	return filepath.Join(tigDir, objectsDirName, string(k[:2]))
+	return filepath.Join(tigDir, DirName, string(k[:2]))
 }
 
 func (k Key) Path(tigDir string) string {

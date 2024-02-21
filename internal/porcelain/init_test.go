@@ -2,6 +2,7 @@ package porcelain
 
 import (
 	"github.com/byjayce/tig/internal/config"
+	"github.com/byjayce/tig/internal/object"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"os"
@@ -42,7 +43,7 @@ var _ = Describe("Init", func() {
 			Expect(f.IsDir()).NotTo(BeTrue())
 
 			// objects 디렉토리가 생성됐는가?
-			d, err := os.Stat(filepath.Join(tempDir, baseDir, objectsDirName))
+			d, err := os.Stat(filepath.Join(tempDir, baseDir, object.DirName))
 			Expect(err).To(BeNil())
 			Expect(d.IsDir()).To(BeTrue())
 
