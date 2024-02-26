@@ -18,6 +18,7 @@ type Type string
 
 const (
 	Blob Type = "blob"
+	Tree Type = "tree"
 )
 
 type Key string
