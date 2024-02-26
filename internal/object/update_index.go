@@ -6,12 +6,6 @@ import (
 	"path/filepath"
 )
 
-type TreeEntry struct {
-	Mode       os.FileMode
-	File       string
-	ObjectHash string
-}
-
 type UpdateIndexParam struct {
 	Files  []string
 	Caches []*TreeEntry
