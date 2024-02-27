@@ -43,8 +43,13 @@ func createTreeObject(tigDir string, tree map[string]any) (string, error) {
 				return "", err
 			}
 
+			stat, err := os.Stat(filepath.Join(workingCopy, key))
+			if err != nil {
+				return "", err
+			}
+
 			entries = append(entries, TreeEntry{
-				Mode:       040000,
+				Mode:       stat.Mode(),
 				File:       key,
 				ObjectHash: hash,
 			})
