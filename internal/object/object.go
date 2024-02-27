@@ -17,8 +17,9 @@ const (
 type Type string
 
 const (
-	Blob Type = "blob"
-	Tree Type = "tree"
+	Blob   Type = "blob"
+	Tree   Type = "tree"
+	Commit Type = "commit"
 )
 
 type Key string
