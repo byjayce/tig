@@ -20,6 +20,7 @@ const (
 	Blob   Type = "blob"
 	Tree   Type = "tree"
 	Commit Type = "commit"
+	Tag    Type = "tag"
 )
 
 type Key string
